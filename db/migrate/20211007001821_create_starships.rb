@@ -16,6 +16,7 @@ class CreateStarships < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :passengers
       t.string :starship_class
+      t.string :url
 
       t.timestamps
     end
