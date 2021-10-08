@@ -3,4 +3,6 @@ class Person < ApplicationRecord
 
   has_many :person_species, class_name: "PersonSpecie"
   has_many :species, through: :person_species, source: :specie
+  has_many :person_starships
+  has_many :starships, through: :person_starships
 end
