@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_012937) do
+ActiveRecord::Schema.define(version: 2021_10_08_020656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "birth_year"
+    t.string "eye_color"
+    t.string "gender"
+    t.string "hair_color"
+    t.string "height"
+    t.string "mass"
+    t.string "skin_color"
+    t.bigint "planet_id"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["planet_id"], name: "index_people_on_planet_id"
+  end
 
   create_table "planets", force: :cascade do |t|
     t.string "name"
