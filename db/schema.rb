@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_012450) do
+ActiveRecord::Schema.define(version: 2021_10_08_012937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 2021_10_08_012450) do
     t.string "climate"
     t.string "terrain"
     t.string "surface_water"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.string "classification"
+    t.string "designation"
+    t.string "average_height"
+    t.string "average_lifespan"
+    t.string "eye_colors"
+    t.string "hair_colors"
+    t.string "skin_colors"
+    t.string "language"
+    t.string "homeworld"
+    t.string "people"
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
