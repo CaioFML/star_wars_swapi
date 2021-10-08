@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_001821) do
+ActiveRecord::Schema.define(version: 2021_10_08_012450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "planets", force: :cascade do |t|
+    t.string "name"
+    t.string "diameter"
+    t.string "rotation_period"
+    t.string "orbital_period"
+    t.string "gravity"
+    t.string "population"
+    t.string "climate"
+    t.string "terrain"
+    t.string "surface_water"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "starships", force: :cascade do |t|
     t.string "mglt"
