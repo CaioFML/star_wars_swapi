@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "skin_color"
     t.bigint "planet_id"
     t.string "url"
+    t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["planet_id"], name: "index_people_on_planet_id"

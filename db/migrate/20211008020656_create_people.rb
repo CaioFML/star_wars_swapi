@@ -11,6 +11,7 @@ class CreatePeople < ActiveRecord::Migration[6.1]
       t.string :skin_color
       t.references :planet
       t.string :url
+      t.string :image_url
 
       t.timestamps
     end
