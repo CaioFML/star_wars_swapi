@@ -138,24 +138,24 @@ describe Swapi::Request do
                 terrain: "desert",
                 surface_water: "1",
                 population: "200000",
-                residents: [
-                  "https://swapi.dev/api/people/1/",
-                  "https://swapi.dev/api/people/2/",
-                  "https://swapi.dev/api/people/4/",
-                  "https://swapi.dev/api/people/6/",
-                  "https://swapi.dev/api/people/7/",
-                  "https://swapi.dev/api/people/8/",
-                  "https://swapi.dev/api/people/9/",
-                  "https://swapi.dev/api/people/11/",
-                  "https://swapi.dev/api/people/43/",
-                  "https://swapi.dev/api/people/62/"
+                residents: %w[
+                  https://swapi.dev/api/people/1/
+                  https://swapi.dev/api/people/2/
+                  https://swapi.dev/api/people/4/
+                  https://swapi.dev/api/people/6/
+                  https://swapi.dev/api/people/7/
+                  https://swapi.dev/api/people/8/
+                  https://swapi.dev/api/people/9/
+                  https://swapi.dev/api/people/11/
+                  https://swapi.dev/api/people/43/
+                  https://swapi.dev/api/people/62/
                 ],
-                films: [
-                  "https://swapi.dev/api/films/1/",
-                  "https://swapi.dev/api/films/3/",
-                  "https://swapi.dev/api/films/4/",
-                  "https://swapi.dev/api/films/5/",
-                  "https://swapi.dev/api/films/6/"
+                films: %w[
+                  https://swapi.dev/api/films/1/
+                  https://swapi.dev/api/films/3/
+                  https://swapi.dev/api/films/4/
+                  https://swapi.dev/api/films/5/
+                  https://swapi.dev/api/films/6/
                 ],
                 created: "2014-12-09T13:50:49.641000Z",
                 edited: "2014-12-20T20:58:18.411000Z",
@@ -219,5 +219,111 @@ describe Swapi::Request do
     end
 
     include_examples "not found data", "swapi_get_planets_not_found"
+  end
+
+  describe "#get_species" do
+    subject(:get_species) { described_class.new.get_species(page: page) }
+
+    context "without page param" do
+      subject(:get_species) { described_class.new.get_species }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 37,
+            next: "https://swapi.dev/api/species/?page=2",
+            previous: nil,
+            results: include(
+              OpenStruct.new(
+                name: "Human",
+                classification: "mammal",
+                designation: "sentient",
+                average_height: "180",
+                skin_colors: "caucasian, black, asian, hispanic",
+                hair_colors: "blonde, brown, black, red",
+                eye_colors: "brown, blue, green, hazel, grey, amber",
+                average_lifespan: "120",
+                homeworld: "https://swapi.dev/api/planets/9/",
+                language: "Galactic Basic",
+                people: %w[
+                  https://swapi.dev/api/people/66/
+                  https://swapi.dev/api/people/67/
+                  https://swapi.dev/api/people/68/
+                  https://swapi.dev/api/people/74/
+                ],
+                films: %w[
+                  https://swapi.dev/api/films/1/
+                  https://swapi.dev/api/films/2/
+                  https://swapi.dev/api/films/3/
+                  https://swapi.dev/api/films/4/
+                  https://swapi.dev/api/films/5/
+                  https://swapi.dev/api/films/6/
+                ],
+                created: "2014-12-10T13:52:11.567000Z",
+                edited: "2014-12-20T21:36:42.136000Z",
+                url: "https://swapi.dev/api/species/1/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of species" do
+        VCR.use_cassette("swapi_get_species", match_requests_on: %i[method uri body]) do
+          expect(get_species).to have_attributes(response)
+        end
+      end
+    end
+
+    context "with page param" do
+      let(:page) { 2 }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 37,
+            next: "https://swapi.dev/api/species/?page=3",
+            previous: "https://swapi.dev/api/species/?page=1",
+            results: include(
+              OpenStruct.new(
+                name: "Neimodian",
+                classification: "unknown",
+                designation: "sentient",
+                average_height: "180",
+                skin_colors: "grey, green",
+                hair_colors: "none",
+                eye_colors: "red, pink",
+                average_lifespan: "unknown",
+                homeworld: "https://swapi.dev/api/planets/18/",
+                language: "Neimoidia",
+                people: [
+                  "https://swapi.dev/api/people/33/"
+                ],
+                films: [
+                  "https://swapi.dev/api/films/4/"
+                ],
+                created: "2014-12-19T17:07:31.319000Z",
+                edited: "2014-12-20T21:36:42.160000Z",
+                url: "https://swapi.dev/api/species/11/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of species" do
+        VCR.use_cassette("swapi_get_species_with_page", match_requests_on: %i[method uri body]) do
+          expect(get_species).to have_attributes(response)
+        end
+      end
+    end
+
+    include_examples "not found data", "swapi_get_species_not_found"
   end
 end

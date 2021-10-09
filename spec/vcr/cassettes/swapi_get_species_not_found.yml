@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://swapi.dev/api/species/?page=25
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: NOT FOUND
+    headers:
+      Server:
+      - nginx/1.16.1
+      Date:
+      - Sat, 09 Oct 2021 23:56:53 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept, Cookie
+      X-Frame-Options:
+      - SAMEORIGIN
+      Etag:
+      - '"8bee5c3ad44d6c57f19e49e8e76ee09e"'
+      Allow:
+      - GET, HEAD, OPTIONS
+    body:
+      encoding: UTF-8
+      string: '{"detail":"Not found"}'
+  recorded_at: Sat, 09 Oct 2021 23:56:53 GMT
+recorded_with: VCR 6.0.0
