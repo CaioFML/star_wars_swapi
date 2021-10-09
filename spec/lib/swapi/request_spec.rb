@@ -1,6 +1,4 @@
 describe Swapi::Request do
-  let(:page) { 1 }
-
   shared_examples "not found data" do |cassette_name|
     context "when not found data" do
       let(:page) { 25 }
@@ -16,46 +14,48 @@ describe Swapi::Request do
   describe "#get_people" do
     subject(:get_people) { described_class.new.get_people(page: page) }
 
-    let(:response) do
-      {
-        class: OpenStruct,
-        found?: true,
-        data: have_attributes(
+    context "without page param" do
+      subject(:get_people) { described_class.new.get_people }
+
+      let(:response) do
+        {
           class: OpenStruct,
-          count: 82,
-          next: "https://swapi.dev/api/people/?page=2",
-          previous: nil,
-          results: include(
-            OpenStruct.new(
-              name: "Luke Skywalker",
-              height: "172",
-              mass: "77",
-              hair_color: "blond",
-              skin_color: "fair",
-              eye_color: "blue",
-              birth_year: "19BBY",
-              gender: "male",
-              homeworld: "https://swapi.dev/api/planets/1/",
-              films: %w[
-                https://swapi.dev/api/films/1/
-                https://swapi.dev/api/films/2/
-                https://swapi.dev/api/films/3/
-                https://swapi.dev/api/films/6/
-              ],
-              species: [],
-              vehicles: %w[https://swapi.dev/api/vehicles/14/ https://swapi.dev/api/vehicles/30/],
-              starships: %w[https://swapi.dev/api/starships/12/ https://swapi.dev/api/starships/22/],
-              created: "2014-12-09T13:50:51.644000Z",
-              edited: "2014-12-20T21:17:56.891000Z",
-              url: "https://swapi.dev/api/people/1/"
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 82,
+            next: "https://swapi.dev/api/people/?page=2",
+            previous: nil,
+            results: include(
+              OpenStruct.new(
+                name: "Luke Skywalker",
+                height: "172",
+                mass: "77",
+                hair_color: "blond",
+                skin_color: "fair",
+                eye_color: "blue",
+                birth_year: "19BBY",
+                gender: "male",
+                homeworld: "https://swapi.dev/api/planets/1/",
+                films: %w[
+                  https://swapi.dev/api/films/1/
+                  https://swapi.dev/api/films/2/
+                  https://swapi.dev/api/films/3/
+                  https://swapi.dev/api/films/6/
+                ],
+                species: [],
+                vehicles: %w[https://swapi.dev/api/vehicles/14/ https://swapi.dev/api/vehicles/30/],
+                starships: %w[https://swapi.dev/api/starships/12/ https://swapi.dev/api/starships/22/],
+                created: "2014-12-09T13:50:51.644000Z",
+                edited: "2014-12-20T21:17:56.891000Z",
+                url: "https://swapi.dev/api/people/1/"
+              )
             )
           )
-        )
-      }
-    end
+        }
+      end
 
-    context "with success response" do
-      it "gets people" do
+      it "returns list of people" do
         VCR.use_cassette("swapi_get_people", match_requests_on: %i[method uri body]) do
           expect(get_people).to have_attributes(response)
         end
@@ -102,7 +102,7 @@ describe Swapi::Request do
         }
       end
 
-      it "gets people" do
+      it "returns list of people" do
         VCR.use_cassette("swapi_get_people_page_2", match_requests_on: %i[method uri body]) do
           expect(get_people).to have_attributes(response)
         end
@@ -110,5 +110,114 @@ describe Swapi::Request do
     end
 
     include_examples "not found data", "swapi_get_people_not_found"
+  end
+
+  describe "#get_planets" do
+    subject(:get_planets) { described_class.new.get_planets(page: page) }
+
+    context "without page param" do
+      subject(:get_planets) { described_class.new.get_planets }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 60,
+            next: "https://swapi.dev/api/planets/?page=2",
+            previous: nil,
+            results: include(
+              OpenStruct.new(
+                name: "Tatooine",
+                rotation_period: "23",
+                orbital_period: "304",
+                diameter: "10465",
+                climate: "arid",
+                gravity: "1 standard",
+                terrain: "desert",
+                surface_water: "1",
+                population: "200000",
+                residents: [
+                  "https://swapi.dev/api/people/1/",
+                  "https://swapi.dev/api/people/2/",
+                  "https://swapi.dev/api/people/4/",
+                  "https://swapi.dev/api/people/6/",
+                  "https://swapi.dev/api/people/7/",
+                  "https://swapi.dev/api/people/8/",
+                  "https://swapi.dev/api/people/9/",
+                  "https://swapi.dev/api/people/11/",
+                  "https://swapi.dev/api/people/43/",
+                  "https://swapi.dev/api/people/62/"
+                ],
+                films: [
+                  "https://swapi.dev/api/films/1/",
+                  "https://swapi.dev/api/films/3/",
+                  "https://swapi.dev/api/films/4/",
+                  "https://swapi.dev/api/films/5/",
+                  "https://swapi.dev/api/films/6/"
+                ],
+                created: "2014-12-09T13:50:49.641000Z",
+                edited: "2014-12-20T20:58:18.411000Z",
+                url: "https://swapi.dev/api/planets/1/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of planets" do
+        VCR.use_cassette("swapi_get_planets", match_requests_on: %i[method uri body]) do
+          expect(get_planets).to have_attributes(response)
+        end
+      end
+    end
+
+    context "with page param" do
+      let(:page) { 2 }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 60,
+            next: "https://swapi.dev/api/planets/?page=3",
+            previous: "https://swapi.dev/api/planets/?page=1",
+            results: include(
+              OpenStruct.new(
+                name: "Geonosis",
+                rotation_period: "30",
+                orbital_period: "256",
+                diameter: "11370",
+                climate: "temperate, arid",
+                gravity: "0.9 standard",
+                terrain: "rock, desert, mountain, barren",
+                surface_water: "5",
+                population: "100000000000",
+                residents: [
+                  "https://swapi.dev/api/people/63/"
+                ],
+                films: [
+                  "https://swapi.dev/api/films/5/"
+                ],
+                created: "2014-12-10T12:47:22.350000Z",
+                edited: "2014-12-20T20:58:18.437000Z",
+                url: "https://swapi.dev/api/planets/11/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of planets" do
+        VCR.use_cassette("swapi_get_planets_page_2", match_requests_on: %i[method uri body]) do
+          expect(get_planets).to have_attributes(response)
+        end
+      end
+    end
+
+    include_examples "not found data", "swapi_get_planets_not_found"
   end
 end

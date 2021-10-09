@@ -6,6 +6,10 @@ module Swapi
       request(:get, "people/?page=#{page}")
     end
 
+    def get_planets(page: 1)
+      request(:get, "planets/?page=#{page}")
+    end
+
     private
 
     attr_reader :response
