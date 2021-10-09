@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "hair_colors"
     t.string "skin_colors"
     t.string "language"
-    t.string "homeworld"
     t.string "people"
     t.string "url"
     t.datetime "created_at", precision: 6, null: false

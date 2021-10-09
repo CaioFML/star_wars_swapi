@@ -10,7 +10,6 @@ class CreateSpecies < ActiveRecord::Migration[6.1]
       t.string :hair_colors
       t.string :skin_colors
       t.string :language
-      t.string :homeworld
       t.string :people
       t.string :url
 
