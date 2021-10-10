@@ -3,14 +3,10 @@ module StarWars
     def call
       (1..).each do |page|
         response = get_species(page)
-        species_attributes = []
 
         break unless response.found?
 
-        response.data.results.each do |result|
-          species_attributes << slice_attributes(result)
-          Specie.create!(species_attributes)
-        end
+        import_species(response)
       end
     end
 
@@ -18,6 +14,15 @@ module StarWars
 
     def get_species(page)
       api.get_species(page: page)
+    end
+
+    def import_species(response)
+      species_attributes = []
+
+      response.data.results.each do |result|
+        species_attributes << slice_attributes(result)
+        Specie.create!(species_attributes)
+      end
     end
 
     def slice_attributes(result)
