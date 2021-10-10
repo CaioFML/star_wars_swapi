@@ -21,8 +21,9 @@ module StarWars
 
       response.data.results.each do |result|
         planets_attributes << slice_attributes(result)
-        Planet.create!(planets_attributes)
       end
+
+      Planet.create!(planets_attributes)
     end
 
     def slice_attributes(result)

@@ -20,12 +20,13 @@ module StarWars
       people_attributes = []
 
       response.data.results.each do |result|
-        people_attributes << people_attributes(result)
-        Person.create!(people_attributes)
+        people_attributes << person_attribute(result)
       end
+
+      Person.create!(people_attributes)
     end
 
-    def people_attributes(result)
+    def person_attribute(result)
       [
         slice_attributes(result),
         find_homeworld_association(result),
@@ -45,7 +46,7 @@ module StarWars
         :birth_year,
         :gender,
         :url
-      ).merge(find_homeworld_association(result))
+      )
     end
 
     def find_homeworld_association(result)
@@ -57,7 +58,7 @@ module StarWars
         Starship.find_by(url: starship)
       end
 
-      { starships: starships }
+      { starships: starships.compact }
     end
 
     def find_species_associations(result)
@@ -65,7 +66,7 @@ module StarWars
         Specie.find_by(url: specie)
       end
 
-      { species: species }
+      { species: species.compact }
     end
   end
 end

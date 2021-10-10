@@ -21,8 +21,9 @@ module StarWars
 
       response.data.results.each do |result|
         starships_attributes << slice_attributes(result)
-        Starship.create!(starships_attributes)
       end
+
+      Starship.create!(starships_attributes)
     end
 
     def slice_attributes(result)
