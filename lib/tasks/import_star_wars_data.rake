@@ -5,6 +5,7 @@ namespace :import_star_wars_data do
     Rake::Task["import_star_wars_data:species"].invoke
     Rake::Task["import_star_wars_data:starships"].invoke
     Rake::Task["import_star_wars_data:people"].invoke
+    Rake::Task["import_star_wars_data:people_images"].invoke
   end
 
   desc "Import planets data from swapi star wars API"
@@ -33,5 +34,12 @@ namespace :import_star_wars_data do
     StarWars::ImportPeople.call
 
     puts "People was successfully imported"
+  end
+
+  desc "Import people url images from star wars API"
+  task people_images: :environment do
+    StarWars::ImportPeopleImages.call
+
+    puts "People url images was successfully imported"
   end
 end
