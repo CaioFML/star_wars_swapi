@@ -3,7 +3,7 @@ module StarWars
     private
 
     def api
-      @api ||= Swapi::Request.new
+      @api ||= StarWarsAPI::Swapi::Request.new
     end
   end
 end

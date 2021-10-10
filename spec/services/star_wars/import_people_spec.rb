@@ -3,12 +3,12 @@ describe StarWars::ImportPeople do
     subject(:call) { described_class.call }
 
     before do
-      allow(Swapi::Request).to receive(:new).and_return swapi_api
+      allow(StarWarsAPI::Swapi::Request).to receive(:new).and_return swapi_api
       allow(swapi_api).to receive(:get_people).with(page: 1).once.and_return response
       allow(swapi_api).to receive(:get_people).with(page: 2).once.and_return OpenStruct.new(found?: false)
     end
 
-    let(:swapi_api) { instance_double(Swapi::Request) }
+    let(:swapi_api) { instance_double(StarWarsAPI::Swapi::Request) }
     let(:person) { Person.first }
     let(:response) do
       OpenStruct.new(
