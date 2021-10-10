@@ -72,3 +72,6 @@ Lint/MissingSuper:
 RSpec/FilePath:
   Exclude:
     - spec/requests/**/*.rb
+
+RSpec/MultipleMemoizedHelpers:
+  enabled: false
