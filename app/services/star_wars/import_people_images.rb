@@ -2,7 +2,7 @@ module StarWars
   class ImportPeopleImages < ApplicationService
     def call
       api.get_people.data.each do |result|
-        Person.where(name: result.name).update(image_url: result.image)
+        update_person_image(result)
       end
     end
 
@@ -10,6 +10,10 @@ module StarWars
 
     def api
       @api ||= StarWarsAPI::Characters::Request.new
+    end
+
+    def update_person_image(result)
+      Person.where(name: result.name).update(image_url: result.image)
     end
   end
 end

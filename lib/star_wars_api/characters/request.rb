@@ -1,13 +1,15 @@
 module StarWarsAPI
   module Characters
     class Request
-      STAR_WARS_URI = "https://rawcdn.githack.com/akabab/starwars-api/0.2.1/api/all.json"
+      STAR_WARS_URI = "https://rawcdn.githack.com/akabab/starwars-api/0.2.1/api/all.json".freeze
 
+      # rubocop:disable Naming/AccessorMethodName
       def get_people
         @response = HTTParty.get(STAR_WARS_URI)
 
         parse_response
       end
+      # rubocop:enable Naming/AccessorMethodName
 
       private
 
