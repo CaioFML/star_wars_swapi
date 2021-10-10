@@ -1,4 +1,4 @@
-describe Swapi::Request do
+describe StarWarsAPI::Swapi::Request do
   shared_examples "not found data" do |cassette_name|
     context "when not found data" do
       let(:page) { 25 }
