@@ -7,3 +7,9 @@ exclude_paths:
 detectors:
   IrresponsibleModule:
     enabled: false
+  # Um método possuir vários statements não significa que é complexo, as vezes precisa copiar muitos dados de um lado
+  # para outro, o rubocop possui um cop mais capaz de analisar a complexidade de um método, por isso desativei este.
+  TooManyStatements:
+    enabled: false
+  UtilityFunction:
+    public_methods_only: true
