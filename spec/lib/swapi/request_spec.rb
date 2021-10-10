@@ -326,4 +326,104 @@ describe Swapi::Request do
 
     include_examples "not found data", "swapi_get_species_not_found"
   end
+
+  describe "get_starships" do
+    subject(:get_starships) { described_class.new.get_starships(page: page) }
+
+    context "without page param" do
+      subject(:get_starships) { described_class.new.get_starships }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 36,
+            next: "https://swapi.dev/api/starships/?page=2",
+            previous: nil,
+            results: include(
+              OpenStruct.new(
+                name: "CR90 corvette",
+                model: "CR90 corvette",
+                manufacturer: "Corellian Engineering Corporation",
+                cost_in_credits: "3500000",
+                length: "150",
+                max_atmosphering_speed: "950",
+                crew: "30-165",
+                passengers: "600",
+                cargo_capacity: "3000000",
+                consumables: "1 year",
+                hyperdrive_rating: "2.0",
+                MGLT: "60",
+                starship_class: "corvette",
+                pilots: [],
+                films: %w[
+                  https://swapi.dev/api/films/1/
+                  https://swapi.dev/api/films/3/
+                  https://swapi.dev/api/films/6/
+                ],
+                created: "2014-12-10T14:20:33.369000Z",
+                edited: "2014-12-20T21:23:49.867000Z",
+                url: "https://swapi.dev/api/starships/2/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of starships" do
+        VCR.use_cassette("swapi_get_starships", match_requests_on: %i[method uri body]) do
+          expect(get_starships).to have_attributes(response)
+        end
+      end
+    end
+
+    context "with page param" do
+      let(:page) { 2 }
+
+      let(:response) do
+        {
+          class: OpenStruct,
+          found?: true,
+          data: have_attributes(
+            class: OpenStruct,
+            count: 36,
+            next: "https://swapi.dev/api/starships/?page=3",
+            previous: "https://swapi.dev/api/starships/?page=1",
+            results: include(
+              OpenStruct.new(
+                name: "Slave 1",
+                model: "Firespray-31-class patrol and attack",
+                manufacturer: "Kuat Systems Engineering",
+                cost_in_credits: "unknown",
+                length: "21.5",
+                max_atmosphering_speed: "1000",
+                crew: "1",
+                passengers: "6",
+                cargo_capacity: "70000",
+                consumables: "1 month",
+                hyperdrive_rating: "3.0",
+                MGLT: "70",
+                starship_class: "Patrol craft",
+                pilots: ["https://swapi.dev/api/people/22/"],
+                films: %w[https://swapi.dev/api/films/2/ https://swapi.dev/api/films/5/],
+                created: "2014-12-15T13:00:56.332000Z",
+                edited: "2014-12-20T21:23:49.897000Z",
+                url: "https://swapi.dev/api/starships/21/"
+              )
+            )
+          )
+        }
+      end
+
+      it "returns list of starships" do
+        VCR.use_cassette("swapi_get_starships_with_page", match_requests_on: %i[method uri body]) do
+          expect(get_starships).to have_attributes(response)
+        end
+      end
+    end
+
+    include_examples "not found data", "swapi_get_starships_not_found"
+  end
 end

@@ -14,6 +14,10 @@ module Swapi
       request(:get, "species/?page=#{page}")
     end
 
+    def get_starships(page: 1)
+      request(:get, "starships/?page=#{page}")
+    end
+
     private
 
     attr_reader :response
