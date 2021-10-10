@@ -30,10 +30,10 @@ describe StarWars::ImportStarships do
               starship_class: "corvette",
               pilots: [],
               films: %w[
-                  https://swapi.dev/api/films/1/
-                  https://swapi.dev/api/films/3/
-                  https://swapi.dev/api/films/6/
-                ],
+                https://swapi.dev/api/films/1/
+                https://swapi.dev/api/films/3/
+                https://swapi.dev/api/films/6/
+              ],
               created: "2014-12-10T14:20:33.369000Z",
               edited: "2014-12-20T21:23:49.867000Z",
               url: "https://swapi.dev/api/starships/2/"
