@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_024913) do
+ActiveRecord::Schema.define(version: 2021_10_10_030552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_people_on_name", unique: true
     t.index ["planet_id"], name: "index_people_on_planet_id"
   end
 
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_planets_on_name", unique: true
   end
 
   create_table "species", force: :cascade do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_species_on_name", unique: true
   end
 
   create_table "starships", force: :cascade do |t|
@@ -100,6 +103,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_024913) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_starships_on_name", unique: true
   end
 
   add_foreign_key "person_species", "people"
