@@ -40,7 +40,7 @@ describe StarWars::ImportSpecies do
       )
     end
 
-    let(:response_specie_attributes) do
+    let(:response_attributes) do
       response.data.results.first.to_h.slice(
         :name,
         :classification,
@@ -62,7 +62,7 @@ describe StarWars::ImportSpecies do
     it "imports species with the given attributes" do
       call
 
-      expect(Specie.first).to have_attributes(response_specie_attributes)
+      expect(Specie.first).to have_attributes(response_attributes)
     end
   end
 end
