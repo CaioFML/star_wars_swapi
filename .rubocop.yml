@@ -74,4 +74,4 @@ RSpec/FilePath:
     - spec/requests/**/*.rb
 
 RSpec/MultipleMemoizedHelpers:
-  enabled: false
+  Enabled: false
