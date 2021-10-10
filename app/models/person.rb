@@ -5,4 +5,6 @@ class Person < ApplicationRecord
   has_many :species, through: :person_species, source: :specie
   has_many :person_starships, dependent: :destroy
   has_many :starships, through: :person_starships
+
+  validates :name, uniqueness: true
 end
