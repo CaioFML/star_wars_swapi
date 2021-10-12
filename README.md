@@ -1,24 +1,74 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a project made with Star Wars SWAPI API!
 
-Things you may want to cover:
+![App](./public/star-wars-swapi.jpeg)
 
-* Ruby version
+## Setup
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+The setups steps expect following tools installed on the system.
 
-* Database creation
+- Git
+- Ruby 3.0.2
+- Rails 6.1.4.1
+- PostgreSQL
 
-* Database initialization
+### Steps to run project
 
-* How to run the test suite
+1. Clone this the repository:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+    $ git clone git@github.com:CaioFML/star_wars_swapi.git
+```
 
-* Deployment instructions
+2. Go to the folder and bundle install:
 
-* ...
+```
+    $ cd star_wars_swapi
+    $ bundle install
+```
+
+2. Run yarn:
+
+```
+    $ yarn
+```
+
+4. Create and setup the database:
+
+```
+    $ rails db:setup
+    $ rails db:migrate
+```
+
+4. Running tests:
+
+```
+    $ rails db:test:prepare
+    $ bundle exec rspec
+```
+
+5. Running rubocop:
+
+```
+    $ bundle exec rubocop
+```
+
+6.Running reek:
+
+```
+    $ bundle exec reek
+```
+
+6. Import all content from SWAPI API to populate database:
+```
+    $ rails import_star_wars_data:all
+```
+
+7. Run server and webpacker:
+```
+    $ rails s
+    $ bin/webpack-dev-server
+```
