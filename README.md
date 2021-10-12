@@ -50,6 +50,8 @@ The setups steps expect following tools installed on the system.
     $ bundle exec rspec
 ```
 
+*The coverage of tests can be verified opening: `./coverage/index.html`*
+
 5. Running rubocop:
 
 ```
