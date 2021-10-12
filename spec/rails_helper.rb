@@ -1,5 +1,9 @@
 require "simplecov"
-SimpleCov.start "rails"
+SimpleCov.start "rails" do
+  add_filter "/channels/application_cable/"
+  add_filter "/mailers/application_mailer.rb"
+  add_filter "/jobs/application_job.rb"
+end
 
 require "webmock/rspec"
 
