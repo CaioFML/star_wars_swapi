@@ -8,7 +8,7 @@ class PersonDecorator < ApplicationDecorator
   private
 
   def starships_intro
-    starships_sentence = starships&.map(&:name).compact.to_sentence
+    starships_sentence = starships&.map(&:name)&.compact&.to_sentence
 
     starships_sentence.present? ? " and I've piloted #{starships_sentence}." : "."
   end
@@ -22,7 +22,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def specie_intro
-    species_sentence = species&.map(&:name).compact.to_sentence
+    species_sentence = species&.map(&:name)&.compact&.to_sentence
 
     "I'm #{indefinite_articlerize(species_sentence)}" if species_sentence.present?
   end
