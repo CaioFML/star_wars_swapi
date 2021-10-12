@@ -75,3 +75,9 @@ RSpec/FilePath:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+# System tests são lentos, cada expect faz carregar toda a página e executar o js, por isso,
+# faz sentido utilizar mais de um expect dentro de cada example.
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/**/*.rb
