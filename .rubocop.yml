@@ -81,3 +81,7 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/MultipleExpectations:
   Exclude:
     - spec/system/**/*.rb
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/system/**/*.rb
