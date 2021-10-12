@@ -1,0 +1,18 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% @people.each do |person| %>
+    <div class="col-lg-3">
+      <%= link_to person_path(person) do %>
+        <div class="card bg-dark text-white">
+          <%= character_image(person) %>
+          <div class="card-img-overlay">
+            <h5 class="card-title">
+              <%= person.name %>
+            </h5>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @people %>
