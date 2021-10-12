@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :person do
-    sequence(:name) { |n| "person#{n}" }
+    name { Faker::Name.unique.name }
 
     association :homeworld, factory: :planet
 

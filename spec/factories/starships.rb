@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :starship do
-    sequence(:name) { |n| "name#{n}" }
+    name { Faker::Name.unique.name }
 
     sequence :url do |n|
       "https://someurl.com/#{n}"
