@@ -1,0 +1,14 @@
+$grey-pagination: rgba(33, 37, 41) !important;
+
+.page-item.active .page-link {
+  background-color: $grey-pagination;
+  border-color: $grey-pagination;
+}
+
+.page-link {
+  color: $grey-pagination;
+}
+
+.page-item.active a {
+  color: white !important;
+}
