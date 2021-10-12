@@ -41,5 +41,7 @@ describe PeopleController do
     it "displays person" do
       expect(assigns(:person)).to eq person
     end
+
+    it { expect(assigns(:person)).to be_decorated }
   end
 end
