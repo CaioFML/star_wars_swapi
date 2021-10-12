@@ -1,8 +1,17 @@
 class PersonDecorator < ApplicationDecorator
+  WOOKIE_WORDS = %w[
+    youw ahuma ooma ga gwyaaaag yuh ur wyaaaaaa kabukk kabukk ma roo wua hnn-rowr mumwa muaa
+    kabukk mumwa Gwyaaaag gwyaaaag roooarrgh ga wyogg youw wua muaa ma
+  ].freeze
+
   def introduction
     "Hello! I'm #{name}. #{characteristics_intro}. My homeworld is #{homeworld.name},"\
       " I was born in the year #{birth_year}"\
       "#{starships_intro}"
+  end
+
+  def wookie_introduction
+    introduction.split.map { |_word| WOOKIE_WORDS.sample }.join(" ").capitalize
   end
 
   private
