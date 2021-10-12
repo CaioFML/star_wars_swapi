@@ -3,18 +3,20 @@ describe PeopleController do
     subject(:get_index) { get people_path, params: { page: page } }
 
     before do
-      create_list(:person, 4)
+      people
 
       get_index
     end
+
+    let(:people) { create_list(:person, 3) }
 
     context "with page params" do
       let(:page) { 1 }
 
       it { expect(response).to have_http_status :ok }
 
-      it "shows coupons" do
-        expect(assigns(:people).size).to eq 4
+      it "displays people" do
+        expect(assigns(:people)).to eq people
       end
     end
 
@@ -23,9 +25,21 @@ describe PeopleController do
 
       it { expect(response).to have_http_status :ok }
 
-      it "shows coupons" do
-        expect(assigns(:people).size).to eq 4
+      it "displays people" do
+        expect(assigns(:people)).to eq people
       end
+    end
+  end
+
+  describe "GET #show" do
+    subject! { get person_path(person) }
+
+    let!(:person) { create(:person) }
+
+    it { expect(response).to have_http_status :ok }
+
+    it "displays person" do
+      expect(assigns(:person)).to eq person
     end
   end
 end
