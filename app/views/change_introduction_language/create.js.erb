@@ -1,0 +1,5 @@
+<% if @language == "wookiee" %>
+  $("p.card-text").html("<%= @person.wookie_introduction %>")
+<% else %>
+  $("p.card-text").html("<%= @person.introduction %>")
+<% end %>

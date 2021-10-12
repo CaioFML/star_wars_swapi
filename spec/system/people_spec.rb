@@ -60,5 +60,23 @@ describe "People" do
                                                "is 188 cm. My homeworld is Tatooine, I was born in the year 41.9BBY "\
                                                "and I've piloted Jedi interceptor.")
     end
+
+    it "changes introduction language", js: true do
+      click_link("change_language_wookiee")
+
+      # Problema com ajax do capybara que não está respeitando o tempo da requisição, sleep com menor tempo possível.
+      sleep 0.02
+
+      wookie_text = page.find("p.card-text").text
+
+      expect(wookie_text.split & PersonDecorator::WOOKIE_WORDS).to be_present
+
+      click_link("change_language_english")
+
+      expect(page)
+        .to have_selector("p.card-text", text: "Hello! I'm Anakin. I'm a Human, my weight is 84 kg and my height "\
+                                               "is 188 cm. My homeworld is Tatooine, I was born in the year 41.9BBY "\
+                                               "and I've piloted Jedi interceptor.")
+    end
   end
 end

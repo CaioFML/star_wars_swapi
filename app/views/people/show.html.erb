@@ -1,4 +1,5 @@
 <%= link_to "<< Back", people_path, class: "btn btn-success btn-sm mb-2" %>
+<%= hidden_field_tag("person_id", @person.id) %>
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4 bg-dark">
@@ -7,7 +8,23 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">
-          <%= @person.name %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= @person.name %>
+            </div>
+            <div class="col-md-6">
+              <div class="float-end">
+                <%= link_to "", id: "change_language_english", remote: true do %>
+                  <img src="https://cdn-icons-png.flaticon.com/512/206/206626.png" width="25px" height="25px">
+                <% end %>
+
+                <%= link_to "", id: "change_language_wookiee", remote: true do %>
+                  <img src="https://cdn3.iconfinder.com/data/icons/star-wars-color/229/chewbacca-512.png" width="25px" height="25px">
+                <% end %>
+              </div>
+            </div>
+          </div>
+
         </h5>
         <p class="card-text">
           <%= @person.introduction %>
